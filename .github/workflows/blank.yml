@@ -25,4 +25,4 @@ jobs:
           KUBE_CONFIG_DATA: ${{ secrets.K8_SECRET_DEV }}
           KUBECTL_VERSION: "1.15"
         with:
-          args: '"rollout status deployment/deployment-tattle-tgm-rest"'
+          args: '"rollout status deployment/deployment-tattle-sharechat-reporter"'
