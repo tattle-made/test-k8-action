@@ -15,14 +15,15 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
-      - name: Run a multi-line script
+      - name: Declare some variables
+        id: vars
+        shell: bash
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
-      - name: verify deployment
-        uses: steebchen/kubectl@master
-        env:
-          KUBE_CONFIG_DATA: ${{ secrets.K8_SECRET_DEV }}
-          KUBECTL_VERSION: "1.15"
-        with:
-          args: '"rollout status deployment/deployment-tattle-sharechat-reporter"'
+          echo "setting variables"
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+      - name: Print commit id
+        run: |
+          echo ${{ steps.vars.outputs.sha_short }}
+          echo "hello ${{ steps.vars.outputs.sha_short }}"
+          echo "'hello ${{ steps.vars.outputs.sha_short }}'"
+       
