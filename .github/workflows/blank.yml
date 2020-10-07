@@ -19,3 +19,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+      - name: verify deployment
+        uses: steebchen/kubectl@master
+        env:
+          KUBE_CONFIG_DATA: ${{ secrets.K8_SECRET_DEV }}
+          KUBECTL_VERSION: "1.15"
+        with:
+          args: '"kubectl rollout status deployment/deployment-tattle-tgm-rest"'
